@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.cibertec.sw_examen_t2.dto.GenericResponseDto;
 import pe.edu.cibertec.sw_examen_t2.dto.MatriculaDTO;
 import pe.edu.cibertec.sw_examen_t2.exception.ResourceNotFoundException;
 import pe.edu.cibertec.sw_examen_t2.model.Matricula;
@@ -19,27 +20,42 @@ public class MatriculaController {
     private final MatriculaService matriculaService;
 
     @GetMapping("/alumno/{idalumno}")
-    public ResponseEntity<List<MatriculaDTO>> findMatricularByAlumno(@PathVariable Integer idalumno) {
+    public ResponseEntity<GenericResponseDto<List<MatriculaDTO>>> findMatricularByAlumno(
+            @PathVariable Integer idalumno) {
         List<MatriculaDTO> matriculas = matriculaService.findMatriculasByAlumno(idalumno);
 
         if (matriculas.isEmpty()) {
-            throw new ResourceNotFoundException("No se encontraron matrículas por el alumno con id " + idalumno);
+            return new ResponseEntity<>(GenericResponseDto.<List<MatriculaDTO>>builder()
+                    .correcto(false)
+                    .mensaje("No se encontraron matrículas para el alumno con id " + idalumno)
+                    .build(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(GenericResponseDto.<List<MatriculaDTO>>builder()
+                    .correcto(true)
+                    .mensaje("Listado de matrículas para el alumno")
+                    .respuesta(matriculas)
+                    .build(), HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(matriculas, HttpStatus.OK);
     }
 
-
     @GetMapping("/matriculasxcurso")
-    public ResponseEntity<List<MatriculaDTO>> countMatriculasByCurso() {
+    public ResponseEntity<GenericResponseDto<List<MatriculaDTO>>> countMatriculasByCurso() {
         List<MatriculaDTO> matricula = matriculaService.countMatriculasByCurso();
 
         if (matricula.isEmpty()) {
-            throw new ResourceNotFoundException("No se encontraron el n° de matriculas por curso.");
+            return new ResponseEntity<>(GenericResponseDto.<List<MatriculaDTO>>builder()
+                    .correcto(false)
+                    .mensaje("No se encontraron el n° de matrículas por curso.")
+                    .build(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(GenericResponseDto.<List<MatriculaDTO>>builder()
+                    .correcto(true)
+                    .mensaje("Número de matrículas por curso")
+                    .respuesta(matricula)
+                    .build(), HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(matricula, HttpStatus.OK);
     }
+
 
 
     @PostMapping("/registrar")
