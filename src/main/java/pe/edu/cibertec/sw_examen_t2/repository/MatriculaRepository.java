@@ -16,8 +16,9 @@ public interface MatriculaRepository extends JpaRepository<Matricula, Integer> {
     List<Matricula> findMatriculaByAlumno(@Param("idalumno") Integer idalumno);
 
 
-    @Query(value = "SELECT m FROM Matricula m JOIN m.curso c " +
-            "GROUP BY c.idcurso")
-    List<Matricula> countMatriculaByCurso();
+    @Query("SELECT COUNT(m) FROM Matricula m WHERE m.curso.idcurso = :idcurso")
+    int countMatriculaByCurso(@Param("idcurso") Integer idcurso);
+
+
 
 }
