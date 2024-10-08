@@ -1,0 +1,348 @@
+{
+	"info": {
+		"_postman_id": "601c295e-f29c-4d85-9764-e21a6a16dac3",
+		"name": "Examen-T2-DSW2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35956105"
+	},
+	"item": [
+		{
+			"name": "Pregunta 2 - Alumno - Listar Alumno Por DNI",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/alumno/dni/12345678",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"alumno",
+						"dni",
+						"12345678"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 2 - Alumno - Listar Alumno por fecha de nacimiento",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/alumno/fechanacimiento/2000-05-10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"alumno",
+						"fechanacimiento",
+						"2000-05-10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 2 - Nota - Listar notas mayores a X numero",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/api/v1/nota/min?nota=14.01",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"nota",
+						"min"
+					],
+					"query": [
+						{
+							"key": "nota",
+							"value": "14.01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 2 - Nota - Listar notas entre un rango de dos numeros",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/api/v1/nota/between?minNota=12&maxNota=15",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"nota",
+						"between"
+					],
+					"query": [
+						{
+							"key": "minNota",
+							"value": "12"
+						},
+						{
+							"key": "maxNota",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 2 - Curso - Listar cursos por su nombre que contengan X letra o palabra",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/api/v1/curso?nombre=e",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"curso"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "e"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 2 - Curso - Listar cursos por sus creditos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8090/api/v1/curso/creditos?creditos=4",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"curso",
+						"creditos"
+					],
+					"query": [
+						{
+							"key": "creditos",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 2 - Matricula - Listar matriculas por ID del alumno",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/matricula/alumno/1\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"matricula",
+						"alumno",
+						"1\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 2 - Matricula - Listar cantidad de matriculas por ID curso",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/matricula/matriculasxcurso/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"matricula",
+						"matriculasxcurso",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 2 - Docente - Listar docentes por su especialidad",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/docente/findDocentesByEspecialidad/Matemáticas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"docente",
+						"findDocentesByEspecialidad",
+						"Matemáticas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 2 - Docente - Listar docentes junto a su cantidad de cursos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8090/api/v1/docente/contar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"docente",
+						"contar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 3 - Asignar Docente",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Hugo\",\r\n    \"apellido\": \"González\",\r\n    \"especialidad\": \"Matemáticas\",\r\n    \"dni\": \"12345678\",\r\n    \"idsede\": 1,\r\n    \"nombresede\": \"Sede Central\",\r\n    \"direccionsede\": \"Av. Principal 121\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8090/docente/",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"docente",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 3 - Asignar Notas",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"idalumno\": 2,\r\n    \"idcurso\": 1,\r\n    \"nota\": 18.23\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/nota/crear",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"nota",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pregunta 3 - Matricula",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"alumno\": \"1\",\r\n    \"curso\": \"2\",\r\n    \"docente\": \"1\",\r\n    \"semestre\": \"2023-II\",\r\n    \"fechamatricula\": \"2023-10-01\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8090/api/v1/matricula/registrar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8090",
+					"path": [
+						"api",
+						"v1",
+						"matricula",
+						"registrar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
