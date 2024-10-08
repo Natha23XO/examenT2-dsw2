@@ -8,5 +8,5 @@ public interface IMatriculaService {
 
     List<MatriculaDTO> findMatriculasByAlumno(Integer idalumno);
     List<MatriculaDTO> countMatriculasByCurso();
-
+    //void registrarMatricula(MatriculaDTO matriculaDTO);
 }
