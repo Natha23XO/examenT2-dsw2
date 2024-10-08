@@ -14,33 +14,50 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/docente")
+@RequestMapping("/api/v1/docente")
 public class DocenteController {
 
     private final DocenteService docenteService;
 
     @GetMapping("/findDocentesByEspecialidad/{especialidad}")
-    public ResponseEntity<List<DocenteDTO>> findDocentesByEspecialidad(@PathVariable String especialidad) {
+    public ResponseEntity<GenericResponseDto<List<DocenteDTO>>> findDocentesByEspecialidad(
+            @PathVariable String especialidad) {
         List<DocenteDTO> docentes = this.docenteService.findDocentesByEspecialidad(especialidad);
 
         if (docentes.isEmpty()) {
-            throw new ResourceNotFoundException("No se encontraron docentes con la especialidad " + especialidad);
+            return new ResponseEntity<>(GenericResponseDto.<List<DocenteDTO>>builder()
+                    .correcto(false)
+                    .mensaje("No se encontraron docentes con la especialidad " + especialidad)
+                    .build(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(GenericResponseDto.<List<DocenteDTO>>builder()
+                    .correcto(true)
+                    .mensaje("Listado de docentes por especialidad")
+                    .respuesta(docentes)
+                    .build(), HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(docentes, HttpStatus.OK);
     }
 
 
     @GetMapping("/contar")
-    public ResponseEntity<List<DocenteDTO>> contarCursosPorDocente() {
+    public ResponseEntity<GenericResponseDto<List<DocenteDTO>>> contarCursosPorDocente() {
         List<DocenteDTO> docente = this.docenteService.countCursosByDocente();
 
         if (docente.isEmpty()) {
-            throw new ResourceNotFoundException("No se encontraron docentes para contar cursos.");
+            return new ResponseEntity<>(GenericResponseDto.<List<DocenteDTO>>builder()
+                    .correcto(false)
+                    .mensaje("No se encontraron docentes para contar cursos.")
+                    .build(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(GenericResponseDto.<List<DocenteDTO>>builder()
+                    .correcto(true)
+                    .mensaje("Número de cursos por docente")
+                    .respuesta(docente)
+                    .build(), HttpStatus.OK);
         }
-
-        return new ResponseEntity<>(docente, HttpStatus.OK);
     }
+
+
     @PostMapping("/")
     public ResponseEntity<GenericResponseDto<String>> asignarDocente(@RequestBody DocenteDTO docenteDTO) {
         try {
