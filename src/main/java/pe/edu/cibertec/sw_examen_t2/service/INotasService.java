@@ -10,4 +10,5 @@ public interface INotasService {
 
     List<NotasDto> findByNotaGreaterThan(BigDecimal notaMinima);
     List<NotasDto> findByNotaBetween(BigDecimal minNota, BigDecimal maxNota);
+    NotasDto saveNota(NotasDto notasDto);
 }
