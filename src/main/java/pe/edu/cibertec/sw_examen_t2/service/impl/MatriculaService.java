@@ -2,8 +2,14 @@ package pe.edu.cibertec.sw_examen_t2.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import pe.edu.cibertec.sw_examen_t2.dto.MatriculaDTO;
+import pe.edu.cibertec.sw_examen_t2.exception.ResourceNotFoundException;
+import pe.edu.cibertec.sw_examen_t2.model.Alumno;
+import pe.edu.cibertec.sw_examen_t2.model.Curso;
 import pe.edu.cibertec.sw_examen_t2.model.Matricula;
+import pe.edu.cibertec.sw_examen_t2.repository.AlumnoRepository;
+import pe.edu.cibertec.sw_examen_t2.repository.CursoRepository;
 import pe.edu.cibertec.sw_examen_t2.repository.MatriculaRepository;
 import pe.edu.cibertec.sw_examen_t2.service.IMatriculaService;
 import pe.edu.cibertec.sw_examen_t2.util.convert.MatriculaConvert;
@@ -15,6 +21,8 @@ import java.util.List;
 public class MatriculaService implements IMatriculaService {
 
     private final MatriculaRepository matriculaRepository;
+    private final AlumnoRepository alumnoRepository;
+    private final CursoRepository cursoRepository;
     private final MatriculaConvert matriculaConvert;
 
     @Override
@@ -26,7 +34,6 @@ public class MatriculaService implements IMatriculaService {
                 .toList();
     }
 
-
     @Override
     public List<MatriculaDTO> countMatriculasByCurso() {
         List<Matricula> matriculaList = this.matriculaRepository.countMatriculaByCurso();
@@ -36,4 +43,19 @@ public class MatriculaService implements IMatriculaService {
                 .toList();
     }
 
+    @Transactional
+    public Matricula registrarMatricula(MatriculaDTO matriculaDTO) {
+        Alumno alumno = alumnoRepository.findById(Integer.parseInt(matriculaDTO.getAlumno()))
+                .orElseThrow(() -> new ResourceNotFoundException("El alumno no existe"));
+        Curso curso = cursoRepository.findById(Integer.parseInt(matriculaDTO.getCurso()))
+                .orElseThrow(() -> new ResourceNotFoundException("El curso no existe"));
+
+        Matricula matricula = new Matricula();
+        matricula.setAlumno(alumno);
+        matricula.setCurso(curso);
+        matricula.setSemestre(matriculaDTO.getSemestre());
+        matricula.setFechamatricula(matriculaDTO.getFechamatricula());
+
+        return matriculaRepository.save(matricula);
+    }
 }
