@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pe.edu.cibertec.sw_examen_t2.dto.GenericResponseDto;
 import pe.edu.cibertec.sw_examen_t2.dto.NotasDto;
+import pe.edu.cibertec.sw_examen_t2.model.Notas;
 import pe.edu.cibertec.sw_examen_t2.service.INotasService;
 
 import java.math.BigDecimal;
@@ -58,5 +56,25 @@ public class NotaController {
                     .build(), org.springframework.http.HttpStatus.OK);
         }
     }
+
+
+    @PostMapping("/crear")
+    public ResponseEntity<GenericResponseDto<String>> registrarNota(@RequestBody NotasDto dto) {
+        try {
+            NotasDto nuevaNota = notasService.saveNota(dto);
+
+            return new ResponseEntity<>(GenericResponseDto.<String>builder()
+                    .correcto(true)
+                    .mensaje("Nota registrada correctamente")
+                    .build(), HttpStatus.CREATED);
+
+        } catch (Exception ex) {
+            return new ResponseEntity<>(GenericResponseDto.<String>builder()
+                    .correcto(false)
+                    .mensaje("Nota NO registrada: " + ex.getMessage())
+                    .build(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 
 }

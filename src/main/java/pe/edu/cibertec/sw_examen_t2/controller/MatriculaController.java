@@ -23,19 +23,19 @@ public class MatriculaController {
         List<MatriculaDTO> matriculas = matriculaService.findMatriculasByAlumno(idalumno);
 
         if (matriculas.isEmpty()) {
-            throw new ResourceNotFoundException("No se encontraron matrículas para el alumno con id " + idalumno);
+            throw new ResourceNotFoundException("No se encontraron matrículas por el alumno con id " + idalumno);
         }
 
         return new ResponseEntity<>(matriculas, HttpStatus.OK);
     }
 
 
-    @GetMapping("/matricularxcurso")
+    @GetMapping("/matriculasxcurso")
     public ResponseEntity<List<MatriculaDTO>> countMatriculasByCurso() {
         List<MatriculaDTO> matricula = matriculaService.countMatriculasByCurso();
 
         if (matricula.isEmpty()) {
-            throw new ResourceNotFoundException("No se encontraron matrículas para contar por curso.");
+            throw new ResourceNotFoundException("No se encontraron el n° de matriculas por curso.");
         }
 
         return new ResponseEntity<>(matricula, HttpStatus.OK);
