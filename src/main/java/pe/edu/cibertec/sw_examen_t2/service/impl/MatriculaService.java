@@ -3,6 +3,7 @@ package pe.edu.cibertec.sw_examen_t2.service.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pe.edu.cibertec.sw_examen_t2.dto.CountMatriculasDTO;
 import pe.edu.cibertec.sw_examen_t2.dto.MatriculaDTO;
 import pe.edu.cibertec.sw_examen_t2.exception.ResourceNotFoundException;
 import pe.edu.cibertec.sw_examen_t2.model.Alumno;
@@ -35,13 +36,12 @@ public class MatriculaService implements IMatriculaService {
     }
 
     @Override
-    public List<MatriculaDTO> countMatriculasByCurso() {
-        List<Matricula> matriculaList = this.matriculaRepository.countMatriculaByCurso();
+    public CountMatriculasDTO countMatriculasByCurso(Integer idcurso) {
+        int count = this.matriculaRepository.countMatriculaByCurso(idcurso);
 
-        return matriculaList.stream()
-                .map(matriculaConvert::MatriculaToDTO)
-                .toList();
+        return new CountMatriculasDTO(count);
     }
+
 
     @Transactional
     public MatriculaDTO registrarMatricula(MatriculaDTO matriculaDTO) {
