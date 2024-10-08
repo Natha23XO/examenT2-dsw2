@@ -8,5 +8,5 @@ public interface IDocenteService {
 
     List<DocenteDTO> findDocentesByEspecialidad(String especialidad);
     List<DocenteDTO> countCursosByDocente();
-
+    void asignarDocente(DocenteDTO docenteDTO);
 }
