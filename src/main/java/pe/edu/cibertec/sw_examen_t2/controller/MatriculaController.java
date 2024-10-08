@@ -56,15 +56,14 @@ public class MatriculaController {
         }
     }
 
-
-
     @PostMapping("/registrar")
-    public ResponseEntity<Matricula> registrarMatricula(@RequestBody MatriculaDTO matriculaDTO) {
-        Matricula nuevaMatricula = matriculaService.registrarMatricula(matriculaDTO);
-        return new ResponseEntity<>(nuevaMatricula, HttpStatus.CREATED);
+    public ResponseEntity<GenericResponseDto<MatriculaDTO>> registrarMatricula(@RequestBody MatriculaDTO matriculaDTO) {
+        MatriculaDTO nuevaMatricula = matriculaService.registrarMatricula(matriculaDTO);
+        return new ResponseEntity<>(GenericResponseDto.<MatriculaDTO>builder()
+                .correcto(true)
+                .respuesta(nuevaMatricula)
+                .mensaje("Matrícula registrada exitosamente")
+                .build(), HttpStatus.CREATED);
     }
 }
-
-
-
 
