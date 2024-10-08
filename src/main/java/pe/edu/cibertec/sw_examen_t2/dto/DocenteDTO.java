@@ -16,6 +16,10 @@ public class DocenteDTO {
     private String especialidad;
     private String dni;
     private int cursos;
+    //agregando hugo para hacerlo mas rapido
+    private Integer idsede;
+    private String nombresede;
+    private String direccionsede;
 
     public DocenteDTO(Integer iddocente, String nombre, String apellido, String especialidad, int cursos) {
         this.iddocente = iddocente;

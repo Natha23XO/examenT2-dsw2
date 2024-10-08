@@ -20,4 +20,7 @@ public interface DocenteRepository extends JpaRepository<Docente, Integer> {
             "GROUP BY d.iddocente")
     List<Docente> countCursosByDocente();
 
+    //Agregado para la pregunta 3 de transaccion (Hugo)
+    Docente findByDni(String dni);
+
 }
