@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.edu.cibertec.sw_examen_t2.dto.CountMatriculasDTO;
 import pe.edu.cibertec.sw_examen_t2.dto.GenericResponseDto;
 import pe.edu.cibertec.sw_examen_t2.dto.MatriculaDTO;
 import pe.edu.cibertec.sw_examen_t2.exception.ResourceNotFoundException;
@@ -38,23 +39,24 @@ public class MatriculaController {
         }
     }
 
-    @GetMapping("/matriculasxcurso")
-    public ResponseEntity<GenericResponseDto<List<MatriculaDTO>>> countMatriculasByCurso() {
-        List<MatriculaDTO> matricula = matriculaService.countMatriculasByCurso();
+    @GetMapping("/matriculasxcurso/{idcurso}")
+    public ResponseEntity<GenericResponseDto<CountMatriculasDTO>> countMatriculasByCurso(@PathVariable Integer idcurso) {
+        CountMatriculasDTO matriculaCount = matriculaService.countMatriculasByCurso(idcurso);
 
-        if (matricula.isEmpty()) {
-            return new ResponseEntity<>(GenericResponseDto.<List<MatriculaDTO>>builder()
+        if (matriculaCount.getCount() == 0) {
+            return new ResponseEntity<>(GenericResponseDto.<CountMatriculasDTO>builder()
                     .correcto(false)
-                    .mensaje("No se encontraron el n° de matrículas por curso.")
+                    .mensaje("No se encontraron matrículas para el curso especificado.")
                     .build(), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(GenericResponseDto.<List<MatriculaDTO>>builder()
+            return new ResponseEntity<>(GenericResponseDto.<CountMatriculasDTO>builder()
                     .correcto(true)
-                    .mensaje("Número de matrículas por curso")
-                    .respuesta(matricula)
+                    .mensaje("Número de matrículas para el curso.")
+                    .respuesta(matriculaCount)
                     .build(), HttpStatus.OK);
         }
     }
+
     @PostMapping("/registrar")
     public ResponseEntity<GenericResponseDto<MatriculaDTO>> registrarMatricula(@RequestBody MatriculaDTO matriculaDTO) {
         MatriculaDTO nuevaMatricula = matriculaService.registrarMatricula(matriculaDTO);
