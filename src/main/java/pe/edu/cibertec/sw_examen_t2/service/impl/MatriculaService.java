@@ -43,20 +43,17 @@ public class MatriculaService implements IMatriculaService {
                 .toList();
     }
 
-
     @Transactional
     public MatriculaDTO registrarMatricula(MatriculaDTO matriculaDTO) {
         Alumno alumno = alumnoRepository.findById(Integer.parseInt(matriculaDTO.getAlumno()))
                 .orElseThrow(() -> new ResourceNotFoundException("El alumno no existe"));
         Curso curso = cursoRepository.findById(Integer.parseInt(matriculaDTO.getCurso()))
                 .orElseThrow(() -> new ResourceNotFoundException("El curso no existe"));
-
         Matricula matricula = new Matricula();
         matricula.setAlumno(alumno);
         matricula.setCurso(curso);
         matricula.setSemestre(matriculaDTO.getSemestre());
         matricula.setFechamatricula(matriculaDTO.getFechamatricula());
-
         Matricula savedMatricula = matriculaRepository.save(matricula);
         return matriculaConvert.MatriculaToDTO(savedMatricula);
     }

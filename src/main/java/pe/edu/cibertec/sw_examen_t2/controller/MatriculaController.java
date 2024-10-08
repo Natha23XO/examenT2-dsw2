@@ -55,7 +55,6 @@ public class MatriculaController {
                     .build(), HttpStatus.OK);
         }
     }
-
     @PostMapping("/registrar")
     public ResponseEntity<GenericResponseDto<MatriculaDTO>> registrarMatricula(@RequestBody MatriculaDTO matriculaDTO) {
         MatriculaDTO nuevaMatricula = matriculaService.registrarMatricula(matriculaDTO);

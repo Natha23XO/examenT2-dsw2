@@ -8,5 +8,4 @@ public interface IMatriculaService {
 
     List<MatriculaDTO> findMatriculasByAlumno(Integer idalumno);
     List<MatriculaDTO> countMatriculasByCurso();
-
 }
